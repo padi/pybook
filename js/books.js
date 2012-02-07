@@ -25,8 +25,8 @@
     // contains an element with that `tagName`
     tagName: 'li',
     events: {
-      // // Save on description change
-      // 'change .desc': 'save',
+      // Save on description change
+      'change .desc': 'save',
       // Destroy when trashed
       'click .trash': 'destroy'
     },
@@ -43,10 +43,10 @@
       // It's more of a convention to return the view object upon rendering
       return this;
     },
-    // save: function(e) {
-    //   // Save changes in description
-    //   this.model.save({desc: $(e.target).val()});
-    // },
+    save: function(e) {
+      // Save changes in description
+      this.model.save({desc: $(e.target).val()});
+    },
     destroy: function(e) {
       // Destroying a model removes it from its collection but
       // doesn't remove the view's element

@@ -151,7 +151,6 @@ class BookManager:
 
         elif request.method == 'DELETE':
             # delete book
-            book = Book.get(int(id))
             book.destroySelf()
 
         return book.to_dict()
