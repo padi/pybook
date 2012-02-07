@@ -45,6 +45,8 @@ class BookManager:
 
             <ul id="books"></ul>
 
+            <h2>Books Added w/o javascript</h2>
+
             <ul id="books-list">
             #for $book in $books
                 <li>
@@ -148,6 +150,8 @@ class BookManager:
                 title = request.json['title'],
                 author = request.json['author']
             )
+
+            print book, request.json
 
         elif request.method == 'DELETE':
             # delete book

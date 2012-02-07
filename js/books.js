@@ -26,7 +26,8 @@
     tagName: 'li',
     events: {
       // Save on description change
-      'change .desc': 'save',
+      'change .title': 'saveTitle',
+      'change .author': 'saveAuthor',
       // Destroy when trashed
       'click .trash': 'destroy'
     },
@@ -35,17 +36,21 @@
       var data = this.model.toJSON();
       // Add contents of li element
       $(this.el).html(
-        $(  '<input type="text" class="desc" value="' + data.title + '">' +
-            '<input type="text" class="desc" value="' + data.author + '">' +
+        $(  '<input type="text" class="title" value="' + data.title + '">' +
+            '<input type="text" class="author" value="' + data.author + '">' +
             '<a href="#" class="trash">Trash</a>'
           )
       );
       // It's more of a convention to return the view object upon rendering
       return this;
     },
-    save: function(e) {
+    saveTitle: function(e) {
       // Save changes in description
-      this.model.save({desc: $(e.target).val()});
+      this.model.save({title: $(e.target).val()});
+    },
+    saveAuthor: function(e) {
+      // Save changes in description
+      this.model.save({author: $(e.target).val()});
     },
     destroy: function(e) {
       // Destroying a model removes it from its collection but
