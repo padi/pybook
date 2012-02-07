@@ -1,2 +1,6 @@
 This is a sample app involving backbone.js books, it's title, author and id.
+
 Ignore all other files in root. Just run by typing 'python test.py' in the command line.
+
+Note: you need an internet connection to load other assets (jQuery, underscore.js, backbone.js).
+You can replace them with local versions of the javascript files
