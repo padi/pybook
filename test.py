@@ -16,10 +16,14 @@ class Book(SQLObject):
     
     def to_dict(self):
         return {
+            'id' : self.id,
           'title': self.title,
-          'author': self.author}
+          'author': self.author
+        }
 
 class BookManager:
+    _cp_config = {'tools.json_in.on': True, 'tools.json_out.on': True}
+    # cherrypy.request.json
     def index(self):
         books = Book.select()
 
@@ -93,6 +97,41 @@ class BookManager:
 
         return 'Stored. <a href="./">Return to Index</a>'
     store.exposed = True
+
+    # RESTFul method for Backbone.js use
+    def books(self, book_id=None):
+        request = cherrypy.request
+        if request.method == 'GET':
+            # query all books, search for sqlobject query and store it in bookmarks
+            books = Book.select()
+            return [b.to_dict() for b in books]
+
+        if book_id:
+            # get book based on id
+            book = Book.get(int(book_id))
+            if not book:
+                abort(404)
+
+        if request.method == 'POST':
+            # create new book
+            book = Book(
+                title = request.json['title'],
+                author = request.json['author']
+            )
+
+        elif request.method == 'PUT':
+            # edit book
+            book.set(
+                title = request.json['title'],
+                author = request.json['author']
+            )
+
+        elif request.method == 'DELETE':
+            # delete book
+            book = Book.get(int(id))
+            book.destroySelf()
+
+        return bookmark.to_dict()
 
     def reset(self):
         Book.dropTable(True)
