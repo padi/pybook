@@ -19,10 +19,10 @@ class BookManager:
             <ul>
             #for $book in $books
                 <li>
-                    $book.title, $book.author
-                    [<a href="./edit?id=$book.id">Edit</a>]
-                    [<a href="./delete?id=$book.id">Delete</a>]
-                <br/>
+                    $book.title, <br/>
+                    $book.author <br/>
+                    [<a href="./edit?id=$book.id">Edit</a>] <br/>
+                    [<a href="./delete?id=$book.id">Delete</a>] <br/>
                 </li>
             #end for
             </ul>
