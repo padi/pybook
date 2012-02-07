@@ -22,7 +22,6 @@ class Book(SQLObject):
         }
 
 class BookManager:
-    _cp_config = {'tools.json_in.on': True, 'tools.json_out.on': True}
     # cherrypy.request.json
     def index(self):
         books = Book.select()
@@ -43,6 +42,11 @@ class BookManager:
             </ul>
 
             <p>[<a href="./edit">Add book</a>]</p>
+
+
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+            <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.2.1/underscore-min.js"></script>
+            <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.5.3/backbone-min.js"></script>
         ''', [locals(), globals()])
 
         return template.respond()
@@ -99,14 +103,17 @@ class BookManager:
     store.exposed = True
 
     # RESTFul method for Backbone.js use
+    @cherrypy.tools.json_in(on = True)
+    @cherrypy.tools.json_out(on = True)
     def books(self, book_id=None):
+
         request = cherrypy.request
-        if request.method == 'GET':
+        if request.method == 'GET' and not book_id:
             # query all books, search for sqlobject query and store it in bookmarks
             books = Book.select()
             return [b.to_dict() for b in books]
 
-        if book_id:
+        elif book_id:
             # get book based on id
             book = Book.get(int(book_id))
             if not book:
@@ -131,7 +138,9 @@ class BookManager:
             book = Book.get(int(id))
             book.destroySelf()
 
-        return bookmark.to_dict()
+        return book.to_dict()
+    books.exposed = True
+
 
     def reset(self):
         Book.dropTable(True)
