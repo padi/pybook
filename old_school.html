@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title>Books</title>
@@ -14,17 +15,17 @@
 <script src="http://ajax.cdnjs.com/ajax/libs/backbone.js/0.3.3/backbone-min.js"></script>
 <script>
 (function ($) {
-    Book = Backbone.Model.extend({
+    window.Book = Backbone.Model.extend({
        title: null 
     });
 
-    Books = Backbone.Collection.extend({
+    window.Books = Backbone.Collection.extend({
         initialize: function (models, options) {
             this.bind("add", options.view.addBookLi);
         }
     });
 
-    AppView = Backbone.View.extend({
+    window.AppView = Backbone.View.extend({
         el: $("body"),
         initialize: function () {
             this.books = new Books( null, { view: this });
@@ -39,7 +40,7 @@
         },
         addBookLi: function (model) {
             // parameter 'model' here is a reference to the model that was added
-            $("ul#books-list").append("<li>" + model.get('title') + "</li>"); 
+            $("ul#books-list").append("<li>" + model.get('title') + "</li>");
         }
     });
     

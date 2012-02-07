@@ -9,6 +9,16 @@ class Book(SQLObject):
     title  = StringCol(length = 50, notNone = True)
     author = StringCol(length = 30, notNone = True)
 
+    # def __init__(self, title, author):
+    #     self.title = title
+    #     self.author = author
+    #     self.status = 'ACTIVE'
+    
+    def to_dict(self):
+        return {
+          'title': self.title,
+          'author': self.author}
+
 class BookManager:
     def index(self):
         books = Book.select()
@@ -16,7 +26,8 @@ class BookManager:
         template = Template('''
             <h2>Books</h2>
 
-            <ul>
+            <button id="add-book">Add Book via backbone</button>
+            <ul id="books-list">
             #for $book in $books
                 <li>
                     $book.title, <br/>
