@@ -29,7 +29,19 @@ class BookManager:
         template = Template('''
             <h2>Books</h2>
 
-            <button id="add-book">Add Book via backbone</button>
+            <div id="book-form">
+              <h2>Add Book</h2>
+              <form action="/books" method="post">
+                <input type="text" name="title" placeholder="title">
+                <input type="text" name="author" placeholder="author">
+                <input type="submit" value="Add Book via backbone">
+              </form>
+            </div>
+
+            <h2>Books Added via BackBone</h2>
+
+            <ul id="bookmarks"></ul>
+
             <ul id="books-list">
             #for $book in $books
                 <li>
@@ -47,6 +59,7 @@ class BookManager:
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
             <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.2.1/underscore-min.js"></script>
             <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.5.3/backbone-min.js"></script>
+            <script src="/books.js" type="text/javascript"></script>
         ''', [locals(), globals()])
 
         return template.respond()
