@@ -35,8 +35,8 @@
       var data = this.model.toJSON();
       // Add contents of li element
       $(this.el).html(
-        $(  data.title +
-            data.author +
+        $(  '<input type="text" class="desc" value="' + data.title + '">' +
+            '<input type="text" class="desc" value="' + data.author + '">' +
             '<a href="#" class="trash">Trash</a>'
           )
       );

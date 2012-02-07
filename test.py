@@ -22,7 +22,10 @@ class Book(SQLObject):
         }
 
 class BookManager:
-    # cherrypy.request.json
+    # @cherrypy.tools.staticdir(root="/Users/marcrendlignacio/pystuff/pybook/", dir='/')
+    _cp_config = {'tools.staticdir.on': True,
+                  'tools.staticdir.root': "/Users/marcrendlignacio/pystuff/pybook",
+                  'tools.staticdir.dir': 'js'}
     def index(self):
         books = Book.select()
 
@@ -40,7 +43,7 @@ class BookManager:
 
             <h2>Books Added via BackBone</h2>
 
-            <ul id="bookmarks"></ul>
+            <ul id="books"></ul>
 
             <ul id="books-list">
             #for $book in $books
